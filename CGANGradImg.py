@@ -41,8 +41,8 @@ class CGANGradImg(CGANTrainer):
                 y_data = data[1]
                 grad = data[2]
                 predicts = self.network(x_data)
-                pre_grads = np.zeros(shape=predicts.shape)
-                for i, j in product(predicts.shape[0], predicts.shape[1]):
+                pre_grads = np.zeros(shape=predicts.shape, dtype='float32')
+                for i, j in product(range(predicts.shape[0]), range(predicts.shape[1])):
                     pre_grads[i, j] = sitk.GetArrayFromImage(
                         sitk.SobelEdgeDetection(
                             sitk.GetImageFromArray(predicts.numpy()[i, j])
@@ -64,8 +64,8 @@ class CGANGradImg(CGANTrainer):
                 
                 x_data = data[0]
                 predicts = self.network(x_data)
-                pre_grads = np.zeros(shape=predicts.shape)
-                for i, j in product(predicts.shape[0], predicts.shape[1]):
+                pre_grads = np.zeros(shape=predicts.shape, dtype='float32')
+                for i, j in product(range(predicts.shape[0]), range(predicts.shape[1])):
                     pre_grads[i, j] = sitk.GetArrayFromImage(
                         sitk.SobelEdgeDetection(
                             sitk.GetImageFromArray(predicts.numpy()[i, j])
@@ -120,7 +120,7 @@ class CGANGradImg(CGANTrainer):
             mr_img, ct_img = rm_max(mr_img), rm_max(ct_img)
             mr_img = mr_img / np.max(mr_img)
             ct_img = ct_img / np.max(ct_img)
-            grad_img = sitk.SobelEdgeDetection(sitk.GetImageFromArray(ct_img))
+            grad_img = sitk.GetArrayFromImage(sitk.SobelEdgeDetection(sitk.GetImageFromArray(ct_img)))
             for mr_sub_img, ct_sub_img, grad_sub_img in zip(
                 extract_ordered_overlap(mr_img, self.patch_shape, self.stride_shape),
                 extract_ordered_overlap(ct_img, self.patch_shape, self.stride_shape),
