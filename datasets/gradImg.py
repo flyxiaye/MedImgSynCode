@@ -1,7 +1,6 @@
 from datasets.data_set import PetDataset
 import numpy as np
 import os
-from datasets.data_set import PetDataset
 
 
 # 数据装载

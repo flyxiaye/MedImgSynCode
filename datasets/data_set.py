@@ -1,7 +1,6 @@
 import numpy as np
 import os
 from paddle.io import Dataset
-import paddle
 
 # data_dir = 'data/data71950'
 # data_dir = 'data/data75500'

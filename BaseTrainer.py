@@ -78,11 +78,11 @@ class BaseTrainer:
             ct_img = sitk.GetArrayFromImage(ct_img)
             # mr_img, ct_img = nib.load(mr_f), nib.load(ct_f)
             # mr_img, ct_img = np.asarray(mr_img.dataobj, dtype='float32'), np.asarray(ct_img.dataobj, 'float32')
-            ct_img = rm_nan_ct(ct_img)
-            ct_img = rm_neg(ct_img)
-            mr_img, ct_img = rm_max(mr_img), rm_max(ct_img)
-            mr_img = mr_img / np.max(mr_img)
-            ct_img = ct_img / np.max(ct_img)
+            # ct_img = rm_nan_ct(ct_img)
+            # ct_img = rm_neg(ct_img)
+            # mr_img, ct_img = rm_max(mr_img), rm_max(ct_img)
+            mr_img = mr_img / 255
+            ct_img = ct_img / 255
 
             for mr_sub_img, ct_sub_img in zip(
                 extract_ordered_overlap(mr_img, self.patch_shape, self.stride_shape),
